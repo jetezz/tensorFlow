@@ -1,0 +1,21 @@
+https://github.com/tensorflow/models/tree/master/research/object_detection
+
+https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md
+faster rcnn
+ssd movile net
+
+https://www.tensorflow.org/learn?hl=es-419
+
+modelo de datos
+https://cocodataset.org/#home
+
+
+https://drive.google.com/file/d/1KlwSEFp25JJREytL3Drzi_S7eGJHIM_S/view?usp=sharing
+
+https://openrefine.org/
+
+https://muret.dlsi.ua.es/muret/#/export/trainingsets
+
+https://github.com/antoniorv6/OpenGLDemos
+
+

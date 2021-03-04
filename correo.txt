@@ -1,0 +1,42 @@
+¡Hola a todos!,
+Como hemos hablado antes, Jesús, te he preparado una carpeta en drive con los datos que vamos a utilizar. El enlace es este: https://drive.google.com/drive/folders/1f7b_7rpfVK0ooC6TEOsWInZaSDyjkD1n?usp=sharing
+En concreto son dos conjuntos de datos o datasets: b-59-850 (Capitan) y SEILS (Lauro secco). 
+Para cada imagen, hay un json correspondiente al etiquetado de cada imagen, que contiene las posiciones de los "bounding boxes" de varios tipos de datos (pentagramas, textos, dibujos...). 
+La estructura de directorios es la siguiente:
+datasets_region_recognition
+
+	JSON: contiene los json. Tienen el mismo nombre que las imágenes a las que corresponden, añadiendo el sufijo ".json".
+		b-59-850
+		SEILS
+	SRC: contiene las imágenes
+		b-59-850
+		SEILS
+	Folds: contiene archivos txt que cada uno tiene una lista de rutas a los json de la carpeta JSON. 
+		b-59-850
+			fold0
+				train.txt
+				test.txt
+			fold1
+				train.txt
+				test.txt
+			....
+		SEILS
+			fold0
+				train.txt
+				test.txt
+			fold1
+				train.txt
+				test.txt
+			....
+
+En cuanto a los folds, no hace falta que le hagas mucho caso por ahora, ya que no lo hemos hablado aún, pero te cuento qué significa. 
+En investigación, para hacer experimentos comparativos y saber si un modelo es mejor o peor que otro, un dataset normalmente se divide en varias particiones (training, validación y test). La partición de training y la de validación se usan en el entrenamiento de los modelos. La de training es la que sirve para que vaya aprendiendo el modelo, y la de validación sirve para evaluar cada x tiempo si el modelo está aprendiendo o no, y para guardar el modelo en su mejor momento, ya que entrenar por mucho tiempo (por muchas épocas), no significa que el modelo vaya a funcionar mejor. Finalmente, la partición de test sirve para evaluar el modelo después del entrenamiento y obtener unos resultados finales con los que comparar con otros modelos. 
+
+A veces, estas particiones se hacen utilizando la técnica de validación cruzada (K-fold cross validation), que lo que hace básicamente es coger la carpeta de datos original y hacer varias versiones de esas particiones para que todas las imágenes estén en algún momento incluidas en todas las particiones y obtener resultados más fiables.
+
+Dicho esto, en la carpeta Folds, para cada uno de los datasets, verás 5 carpetas (fold0, fold1,...), y dentro de cada una tienes dos ficheros (test.txt y train.txt). Estos ficheros contienen las rutas a los JSON que se deberán utilizar en esa iteración de la validación cruzada para test y para entrenar. Si se necesita partición de validación, se puede coger un subconjunto de la lista de ficheros que hay en train.txt, ya que tanto las particiones de entrenamiento como de validación, en realidad se asume que son datos que el modelo tiene etiquetados inicialmente, y que podemos hacer con ellos lo que queramos. Lo más importante es que en el entrenamiento no se usen las imágenes de la partición de test.
+
+Si quieres, por simplificar al menos inicialmente, puedes usar los ficheros "txt" de la iteración 0 (fold0) de cada dataset y más adelante cuando avances un poco, te explicamos un poco más sobre esto. La idea al final, es que en cada iteración de la validación cruzada se entrenará un modelo, por lo que al final tendremos 5 modelos iguales pero entrenados con diferentes datos (porque son 5 iteraciones las que he definido yo) y los resultados finales de un modelo concreto se obtendrán a través del promedio de los resultados en las particiones de test de cada iteración.
+
+Si tienes dudas, puedes escribirnos sin problemas. Si te lías mucho con eso de los folds, si quieres de momento ignora la carpeta folds, y más adelante lo vemos mejor.
+Paco
