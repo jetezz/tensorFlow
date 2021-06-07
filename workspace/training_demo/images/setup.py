@@ -32,6 +32,9 @@ def comprobarCarpetaFold():
 		print("no especificado el nombre de la carpeta fold")		
 	return directorio
 
+
+##Iniciamos el setup
+##Creamos las carpetas
 print("creamos las carpetas necesarias")
 try:
     os.mkdir('imagenes')
@@ -68,7 +71,10 @@ try:
     print("carpeta xml creada")
 except: 
     print("ya existe la carpeta xml")
+###################################################################
 
+
+##Comprobar los valores introduccidos o poner los valores por defecto
 print("comprobamos valores introduccidos por linea de comando")
 ancho=comprobarArgv(1)
 if int(ancho) < 1 :
@@ -88,18 +94,21 @@ print("nombre de la carpeta fold="+carpetaFold)
 
 print("Si los datos son correctos pulsa cualquier tecla para continuar")
 msvcrt.getch()
+################################################################################
 
+##iniciamos el json to xml con los valores seleccionados 
 print("iniciamos json to xml")
 os.system("python json-to-xml.py "+str(ancho)+" "+str(alto)+" "+directorioJson)
+#########################################################################
 
-
+## hacemos el escalado de las imagenes con los valores seleccionados
 print("iniciamos escalado de imagenes")
 os.system("python escalado.py "+str(ancho)+" "+str(alto)+" "+ carpetaFold)
+#########################################################
 
 
 
-
-"""
+##Generamos los tfredord y los llevamos a la carpeta correspondiente
 print("iniciamos TFrecord para train")
 os.system("python generate_tfrecord.py -x train -l label_map.pbtxt -o train.record")
 shutil.move("train.record", "../annotations/train.record")
@@ -107,4 +116,4 @@ shutil.move("train.record", "../annotations/train.record")
 print("iniciamos TFrecord para test")
 os.system("python generate_tfrecord.py -x test -l label_map.pbtxt -o test.record")
 shutil.move("test.record", "../annotations/test.record")
-"""
+####################################################
